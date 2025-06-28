@@ -93,17 +93,18 @@
 
     const userName = nameInput.value;
     newCommentUserName.textContent = userName;
+    nameInput.value = "";
 
     const dateOptions = { day: 'numeric', month: '2-digit', year: '2-digit'};
     const timeOptions = { hour: 'numeric', minute: 'numeric'};
 
     const date = (new Date()).toLocaleDateString('ru-RU', dateOptions);
-    console.log(date);
+    // console.log(date);
     const time = (new Date()).toLocaleTimeString('ru-RU', timeOptions);
-    console.log(time);
+    // console.log(time);
 
     const dateForComment = date + " " + time;
-    console.log(dateForComment);
+    // console.log(dateForComment);
 
     newCommentDate.textContent = dateForComment;
   })
