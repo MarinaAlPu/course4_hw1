@@ -46,8 +46,8 @@
       </li>
     </ul>
     <div class="add-form">
-      <input id="name" type="text" class="add-form-name" placeholder="Введите ваше имя" />
-      <textarea id="commentText" type="textarea" class="add-form-text" placeholder="Введите ваш коментарий"
+      <input id="name" type="text" class="add-form-name item" placeholder="Введите ваше имя" />
+      <textarea id="commentText" type="textarea" class="add-form-text item" placeholder="Введите ваш коментарий"
         rows="4"></textarea>
       <div class="add-form-row">
         <button class="add-form-button">Написать</button>
@@ -83,30 +83,84 @@
       </li>`
 
 
+  function validation(element) {
+    if (element.value === "") {
+      element.classList.add("error");
+      // element.placeholder = "Чтобы отправить комментарий заполните это поле";
+      element.placeholder = "Заполните это поле";
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+
+  nameInput.addEventListener("click", () => {
+    nameInput.classList.remove("error");
+  })
+
+  commentInput.addEventListener("click", () => {
+    commentInput.classList.remove("error");
+  })
+
   addCommentButton.addEventListener("click", () => {
-    commentsList.insertAdjacentHTML("beforeend", commentTemplate);
-    const newComment = document.querySelector('ul> li:last-child');
-    // console.log(newComment);
+    let status = true;
 
-    const newCommentUserName = document.querySelector('ul> li:last-child div.user-name');
-    const newCommentDate = document.querySelector('ul> li:last-child div.date');
+    // if (nameInput.value === "" && commentInput === "") {
+    //   nameInput.classList.add("error");
+    //   commentInput.classList.add("error");
+    //   return;
+    // } else if (commentInput === "") {
+    //   commentInput.classList.add("error");
+    //   return;
+    // } else if (nameInput.value === "") {
+    //   nameInput.classList.add("error");
+    //   return;
+    // }
 
-    const userName = nameInput.value;
-    newCommentUserName.textContent = userName;
-    nameInput.value = "";
 
-    const dateOptions = { day: 'numeric', month: '2-digit', year: '2-digit'};
-    const timeOptions = { hour: 'numeric', minute: 'numeric'};
+    status = validation(nameInput);
+    status = validation(commentInput);
+    // console.log(status);
 
-    const date = (new Date()).toLocaleDateString('ru-RU', dateOptions);
-    // console.log(date);
-    const time = (new Date()).toLocaleTimeString('ru-RU', timeOptions);
-    // console.log(time);
 
-    const dateForComment = date + " " + time;
-    // console.log(dateForComment);
+    if (status === true) {
+      // nameInput.classList.remove("error");
+      nameInput.placeholder = "Введите ваше имя";
+      // commentInput.classList.remove("error");
+      commentInput.placeholder = "Введите ваш коментарий";
 
-    newCommentDate.textContent = dateForComment;
+      commentsList.insertAdjacentHTML("beforeend", commentTemplate);
+      const newComment = document.querySelector('ul> li:last-child');
+      // console.log(newComment);
+
+      const newCommentUserName = document.querySelector('ul> li:last-child div.user-name');
+      const newCommentDate = document.querySelector('ul> li:last-child div.date');
+      const newCommentText = document.querySelector('ul> li:last-child div.comment-text');
+
+      const userName = nameInput.value;
+      newCommentUserName.textContent = userName;
+      nameInput.value = "";
+
+      newCommentText.textContent = commentInput.value;
+      commentInput.value = "";
+
+      const dateOptions = { day: 'numeric', month: '2-digit', year: '2-digit' };
+      const timeOptions = { hour: 'numeric', minute: 'numeric' };
+
+      const date = (new Date()).toLocaleDateString('ru-RU', dateOptions);
+      // console.log(date);
+      const time = (new Date()).toLocaleTimeString('ru-RU', timeOptions);
+      // console.log(time);
+
+      const dateForComment = date + " " + time;
+      // console.log(dateForComment);
+
+      newCommentDate.textContent = dateForComment;
+
+
+
+    }
   })
 
   console.log("It works!");
