@@ -94,13 +94,30 @@
     }
   }
 
+  function deleteClass(element, className) {
+    element.classList.remove(className);
+    element.placeholder = "";
+  }
+
+  function setPlaceholder(element, placeholderplaceholder) {
+    element.placeholder = placeholderplaceholder;
+  }
+
 
   nameInput.addEventListener("click", () => {
-    nameInput.classList.remove("error");
+    deleteClass(nameInput, "error");
   })
 
   commentInput.addEventListener("click", () => {
-    commentInput.classList.remove("error");
+    deleteClass(commentInput, "error");
+  })
+
+  nameInput.setPlaceholder("blur", () => {
+    setPlaceholder(nameInput, "Введите ваше имя");
+  })
+  
+  commentInput.addEventListener("blur", () => {
+    setPlaceholder(nameInput, "Введите ваш коментарий");
   })
 
   addCommentButton.addEventListener("click", () => {
