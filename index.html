@@ -123,30 +123,12 @@
   addCommentButton.addEventListener("click", () => {
     let status = true;
 
-    // if (nameInput.value === "" && commentInput === "") {
-    //   nameInput.classList.add("error");
-    //   commentInput.classList.add("error");
-    //   return;
-    // } else if (commentInput === "") {
-    //   commentInput.classList.add("error");
-    //   return;
-    // } else if (nameInput.value === "") {
-    //   nameInput.classList.add("error");
-    //   return;
-    // }
-
-
     status = validation(nameInput);
     status = validation(commentInput);
     // console.log(status);
 
 
     if (status === true) {
-      // nameInput.classList.remove("error");
-      nameInput.placeholder = "Введите ваше имя";
-      // commentInput.classList.remove("error");
-      commentInput.placeholder = "Введите ваш коментарий";
-
       commentsList.insertAdjacentHTML("beforeend", commentTemplate);
       const newComment = document.querySelector('ul> li:last-child');
       // console.log(newComment);
@@ -176,7 +158,8 @@
       newCommentDate.textContent = dateForComment;
 
 
-
+      const newCommentLikesCounter = document.querySelector('ul> li:last-child span.likes-counter');
+      newCommentLikesCounter.textContent = "0";
     }
   })
 
