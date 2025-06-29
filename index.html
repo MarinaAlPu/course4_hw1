@@ -99,8 +99,8 @@
     element.placeholder = "";
   }
 
-  function setPlaceholder(element, placeholderplaceholder) {
-    element.placeholder = placeholderplaceholder;
+  function setPlaceholder(element, placeholderText) {
+    element.placeholder = placeholderText;
   }
 
 
@@ -112,12 +112,12 @@
     deleteClass(commentInput, "error");
   })
 
-  nameInput.setPlaceholder("blur", () => {
+  nameInput.addEventListener("blur", () => {
     setPlaceholder(nameInput, "Введите ваше имя");
   })
   
   commentInput.addEventListener("blur", () => {
-    setPlaceholder(nameInput, "Введите ваш коментарий");
+    setPlaceholder(commentInput, "Введите ваш коментарий");
   })
 
   addCommentButton.addEventListener("click", () => {
