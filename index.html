@@ -125,13 +125,15 @@
 
     status = validation(nameInput);
     status = validation(commentInput);
-    // console.log(status);
 
 
     if (status === true) {
-      commentsList.insertAdjacentHTML("beforeend", commentTemplate);
+      // commentsList.insertAdjacentHTML("beforeend", commentTemplate);
+
+      const currentCommentsList = commentsList.innerHTML
+      commentsList.innerHTML = currentCommentsList + commentTemplate;
+
       const newComment = document.querySelector('ul> li:last-child');
-      // console.log(newComment);
 
       const newCommentUserName = document.querySelector('ul> li:last-child div.user-name');
       const newCommentDate = document.querySelector('ul> li:last-child div.date');
@@ -148,13 +150,9 @@
       const timeOptions = { hour: 'numeric', minute: 'numeric' };
 
       const date = (new Date()).toLocaleDateString('ru-RU', dateOptions);
-      // console.log(date);
       const time = (new Date()).toLocaleTimeString('ru-RU', timeOptions);
-      // console.log(time);
 
       const dateForComment = date + " " + time;
-      // console.log(dateForComment);
-
       newCommentDate.textContent = dateForComment;
 
 
