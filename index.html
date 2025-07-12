@@ -63,15 +63,6 @@
   const commentInput = document.getElementById('commentText');
   const addCommentButton = document.querySelector('.add-form-button');
   const commentsList = document.querySelector('ul.comments');
-  // const likeButton = document.querySelector('.like-button');
-
-  const comment = {
-    name: "",
-    date: "",
-    text: "",
-    likesCounter: 0,
-    likeStatus: false
-  }
 
   const comments = [
     {
@@ -88,7 +79,7 @@
       likesCounter: 75,
       likeStatus: true
     },
-  ]
+  ];
 
   const commentTemplate =
     `<li class="comment">
@@ -227,24 +218,6 @@
 
 
     if (status === true) {
-      // commentsList.insertAdjacentHTML("beforeend", commentTemplate);
-
-      // const currentCommentsList = commentsList.innerHTML
-      // commentsList.innerHTML = currentCommentsList + commentTemplate;
-
-      // const newComment = document.querySelector('ul> li:last-child');
-
-      // const newCommentUserName = document.querySelector('ul> li:last-child div.user-name');
-      // const newCommentDate = document.querySelector('ul> li:last-child div.date');
-      // const newCommentText = document.querySelector('ul> li:last-child div.comment-text');
-
-      // const userName = nameInput.value;
-      // newCommentUserName.textContent = userName;
-      // nameInput.value = "";
-
-      // newCommentText.textContent = commentInput.value;
-      // commentInput.value = "";
-
       const dateOptions = { day: 'numeric', month: '2-digit', year: '2-digit' };
       const timeOptions = { hour: 'numeric', minute: 'numeric' };
 
@@ -252,29 +225,21 @@
       const time = (new Date()).toLocaleTimeString('ru-RU', timeOptions);
 
       const dateForComment = date + " " + time;
-      // newCommentDate.textContent = dateForComment;
 
-
-      // const newCommentLikesCounter = document.querySelector('ul> li:last-child span.likes-counter');
-      // newCommentLikesCounter.textContent = "0";
-
-
-
-
-      const commentObject = comment;
-      comment.name = nameInput.value;
-      comment.date = dateForComment;
-      comment.text = commentInput.value;
-      comment.likesCounter = 0;
-      comment.like = false;
-
+      const commentObject = {
+        name: nameInput.value,
+        date: dateForComment,
+        text: commentInput.value,
+        likesCounter: 0,
+        like: false
+      };
 
       nameInput.value = "";
       commentInput.value = "";
 
 
-      comments.push(comment);
-
+      comments.push(commentObject);
+      // console.log(comments);
       renderComments();
     }
   });
