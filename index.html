@@ -113,38 +113,22 @@
 
     for (const likeButton of likeButtons) {
       likeButton.addEventListener("click", () => {
-        // console.log("\nЛайкнули комментарий");
-
-        // console.log("\nЦелевой элемент:");
-        // console.log(event.target);
-
+        // получить целевой элемент
         const commentNumber = event.target.closest('li.comment');
-        // console.log("\nРодительский коммент:");
-        // console.log(commentNumber);
 
         // получить индекс комментария
         const commentIndex = commentNumber.dataset.index;
-        // console.log("\nИндекс комментария:");
-        // console.log(commentIndex);
 
         // получить комментарий по индексу из массива
         const currentComment = comments[commentIndex];
-        // console.log("\nОбъект комментария:");
-        // console.log(currentComment);
 
         // проверить статус лайка по индексу в объекте комментария в массиве
         const currentLikeStatus = comments[commentIndex].likeStatus;
-        // console.log("\nСтатус лайка:");
-        // console.log(currentLikeStatus);
 
-        // если false, то сменить на true в объекте коммента
         if (currentLikeStatus) {
-          // console.log("\nЛайк true");
           comments[commentIndex].likeStatus = false;
           comments[commentIndex].likesCounter--;
-          // если true, то сменить на false в объекте коммента
         } else if (!currentLikeStatus) {
-          // console.log("\nЛайк false");
           comments[commentIndex].likeStatus = true;
           comments[commentIndex].likesCounter++;
         }
@@ -211,19 +195,14 @@
       }
     })
       .join("");
-    // console.log(commentsHtml);
 
     commentsList.innerHTML = commentsHtml;
 
     initClickLikeListeners();
   }
 
-  // console.log(comments);
   renderComments();
 
-  // const likeButton = document.querySelector('.like-button');
-
-  
   nameInput.addEventListener("click", () => {
     deleteClass(nameInput, "error");
   });
