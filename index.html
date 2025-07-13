@@ -10,7 +10,7 @@
 <body>
   <div class="container">
     <ul class="comments">
-      <li class="comment">
+      <!-- <li class="comment">
         <div class="comment-header">
           <div>Глеб Фокин</div>
           <div>12.02.22 12:18</div>
@@ -43,7 +43,7 @@
             <button class="like-button -active-like"></button>
           </div>
         </div>
-      </li>
+      </li> -->
     </ul>
     <div class="add-form">
       <input id="name" type="text" class="add-form-name item" placeholder="Введите ваше имя" />
@@ -64,6 +64,22 @@
   const addCommentButton = document.querySelector('.add-form-button');
   const commentsList = document.querySelector('ul.comments');
 
+  const comments = [
+    {
+      name: "Глеб Фокин",
+      date: "12.02.22 12:18",
+      text: "Это будет первый комментарий на этой странице",
+      likesCounter: 3,
+      isLiked: false
+    },
+    {
+      name: "Варвара Н.",
+      date: "13.02.22 19:22",
+      text: "Мне нравится как оформлена эта страница! ❤",
+      likesCounter: 75,
+      isLiked: true
+    },
+  ];
 
   const commentTemplate =
     `<li class="comment">
@@ -82,6 +98,36 @@
         </div>
       </li>`
 
+  // функция навешивания обработчика события на лайк
+  const initClickLikeListeners = () => {
+    const likeButtons = document.querySelectorAll(".like-button");
+
+    for (const likeButton of likeButtons) {
+      likeButton.addEventListener("click", () => {
+        // получить целевой элемент
+        const commentNumber = event.target.closest('li.comment');
+
+        // получить индекс комментария
+        const commentIndex = commentNumber.dataset.index;
+
+        // получить комментарий по индексу из массива
+        const currentComment = comments[commentIndex];
+
+        // проверить статус лайка по индексу в объекте комментария в массиве
+        const currentisLiked = comments[commentIndex].isLiked;
+
+        if (currentisLiked) {
+          comments[commentIndex].isLiked = false;
+          comments[commentIndex].likesCounter--;
+        } else if (!currentisLiked) {
+          comments[commentIndex].isLiked = true;
+          comments[commentIndex].likesCounter++;
+        }
+
+        renderComments();
+      })
+    }
+  };
 
   function validation(element) {
     if (element.value === "") {
@@ -103,22 +149,66 @@
     element.placeholder = placeholderText;
   }
 
+  function renderComments() {
+    const commentsHtml = comments.map((comment, index) => {
+      if (comment.isLiked) {
+        return `<li class="comment" data-index="${index}">
+        <div class="comment-header">
+          <div class="user-name">${comment.name}</div>
+          <div class="date">${comment.date}</div>
+        </div>
+        <div class="comment-body">
+          <div class="comment-text">${comment.text}</div>
+        </div>
+        <div class="comment-footer">
+          <div class="likes">
+            <span class="likes-counter">${comment.likesCounter}</span>
+            <button class="like-button -active-like"></button>
+          </div>
+        </div>
+      </li>`
+      } else if (!comment.isLiked) {
+        return `<li class="comment" data-index="${index}">
+        <div class="comment-header">
+          <div class="user-name">${comment.name}</div>
+          <div class="date">${comment.date}</div>
+        </div>
+        <div class="comment-body">
+          <div class="comment-text">${comment.text}</div>
+        </div>
+        <div class="comment-footer">
+          <div class="likes">
+            <span class="likes-counter">${comment.likesCounter}</span>
+            <button class="like-button"></button>
+          </div>
+        </div>
+      </li>`
+      }
+    })
+      .join("");
+
+    commentsList.innerHTML = commentsHtml;
+
+    initClickLikeListeners();
+  }
+
+  renderComments();
 
   nameInput.addEventListener("click", () => {
     deleteClass(nameInput, "error");
-  })
+  });
 
   commentInput.addEventListener("click", () => {
     deleteClass(commentInput, "error");
-  })
+  });
 
   nameInput.addEventListener("blur", () => {
     setPlaceholder(nameInput, "Введите ваше имя");
-  })
-  
+  });
+
   commentInput.addEventListener("blur", () => {
     setPlaceholder(commentInput, "Введите ваш коментарий");
-  })
+  });
 
   addCommentButton.addEventListener("click", () => {
     let status = true;
@@ -128,24 +218,6 @@
 
 
     if (status === true) {
-      // commentsList.insertAdjacentHTML("beforeend", commentTemplate);
-
-      const currentCommentsList = commentsList.innerHTML
-      commentsList.innerHTML = currentCommentsList + commentTemplate;
-
-      const newComment = document.querySelector('ul> li:last-child');
-
-      const newCommentUserName = document.querySelector('ul> li:last-child div.user-name');
-      const newCommentDate = document.querySelector('ul> li:last-child div.date');
-      const newCommentText = document.querySelector('ul> li:last-child div.comment-text');
-
-      const userName = nameInput.value;
-      newCommentUserName.textContent = userName;
-      nameInput.value = "";
-
-      newCommentText.textContent = commentInput.value;
-      commentInput.value = "";
-
       const dateOptions = { day: 'numeric', month: '2-digit', year: '2-digit' };
       const timeOptions = { hour: 'numeric', minute: 'numeric' };
 
@@ -153,13 +225,24 @@
       const time = (new Date()).toLocaleTimeString('ru-RU', timeOptions);
 
       const dateForComment = date + " " + time;
-      newCommentDate.textContent = dateForComment;
+
+      const commentObject = {
+        name: nameInput.value,
+        date: dateForComment,
+        text: commentInput.value,
+        likesCounter: 0,
+        like: false
+      };
+
+      nameInput.value = "";
+      commentInput.value = "";
 
 
-      const newCommentLikesCounter = document.querySelector('ul> li:last-child span.likes-counter');
-      newCommentLikesCounter.textContent = "0";
+      comments.push(commentObject);
+      // console.log(comments);
+      renderComments();
     }
-  })
+  });
 
   console.log("It works!");
 </script>
