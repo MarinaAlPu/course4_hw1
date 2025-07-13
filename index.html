@@ -70,14 +70,14 @@
       date: "12.02.22 12:18",
       text: "Это будет первый комментарий на этой странице",
       likesCounter: 3,
-      likeStatus: false
+      isLiked: false
     },
     {
       name: "Варвара Н.",
       date: "13.02.22 19:22",
       text: "Мне нравится как оформлена эта страница! ❤",
       likesCounter: 75,
-      likeStatus: true
+      isLiked: true
     },
   ];
 
@@ -114,13 +114,13 @@
         const currentComment = comments[commentIndex];
 
         // проверить статус лайка по индексу в объекте комментария в массиве
-        const currentLikeStatus = comments[commentIndex].likeStatus;
+        const currentisLiked = comments[commentIndex].isLiked;
 
-        if (currentLikeStatus) {
-          comments[commentIndex].likeStatus = false;
+        if (currentisLiked) {
+          comments[commentIndex].isLiked = false;
           comments[commentIndex].likesCounter--;
-        } else if (!currentLikeStatus) {
-          comments[commentIndex].likeStatus = true;
+        } else if (!currentisLiked) {
+          comments[commentIndex].isLiked = true;
           comments[commentIndex].likesCounter++;
         }
 
@@ -151,7 +151,7 @@
 
   function renderComments() {
     const commentsHtml = comments.map((comment, index) => {
-      if (comment.likeStatus) {
+      if (comment.isLiked) {
         return `<li class="comment" data-index="${index}">
         <div class="comment-header">
           <div class="user-name">${comment.name}</div>
@@ -167,7 +167,7 @@
           </div>
         </div>
       </li>`
-      } else if (!comment.likeStatus) {
+      } else if (!comment.isLiked) {
         return `<li class="comment" data-index="${index}">
         <div class="comment-header">
           <div class="user-name">${comment.name}</div>
