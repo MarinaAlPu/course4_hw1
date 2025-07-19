@@ -129,6 +129,54 @@
     }
   };
 
+  // функция навешивания обработчика события на лайк
+  const initClickCommentListeners = () => {
+    const existingComments = document.querySelectorAll('li.comment');
+    console.log("\nСписок комментариев");
+    console.log(existingComments);
+
+    for (const existingComment of existingComments) {
+      existingComment.addEventListener("click", () => {
+        event.stopPropagation();
+
+        // получить целевой элемент
+        const existingComment = event.target.closest('li.comment');
+        console.log("\nЦелевой элемент");
+        console.log(existingComment);
+
+        // получить индекс комментария
+        const commentIndex = existingComment.dataset.index;
+        console.log("\nИндекс целевого элемента");
+        console.log(commentIndex);
+
+        // получить комментарий по индексу из массива
+        const currentComment = comments[commentIndex];
+        console.log("\nЦелевой коммент");
+        console.log(currentComment);
+
+        // получить данные для инпута
+        const currentCommentName = currentComment.name;
+        console.log("\nАвтор целевого коммента");
+        console.log(currentCommentName);
+        const currentCommentText = currentComment.text;
+        console.log("\nТекст целевого коммента");
+        console.log(currentCommentText);
+
+
+        // разместить данные в поле коммента
+        const textForInput = ">" + currentCommentName + "\n>" + currentCommentText + "\n";
+        console.log("\nТекст для инпута");
+        console.log(textForInput);
+        commentInput.textContent = textForInput;
+
+
+
+
+        renderComments();
+      })
+    }
+  };
+
   function validation(element) {
     if (element.value === "") {
       element.classList.add("error");
@@ -190,6 +238,7 @@
     commentsList.innerHTML = commentsHtml;
 
     initClickLikeListeners();
+    initClickCommentListeners();
   }
 
   renderComments();
