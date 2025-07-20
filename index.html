@@ -104,6 +104,8 @@
 
     for (const likeButton of likeButtons) {
       likeButton.addEventListener("click", () => {
+        event.stopPropagation();
+
         // получить целевой элемент
         const commentNumber = event.target.closest('li.comment');
 
@@ -137,8 +139,6 @@
 
     for (const existingComment of existingComments) {
       existingComment.addEventListener("click", () => {
-        event.stopPropagation();
-
         // получить целевой элемент
         const existingComment = event.target.closest('li.comment');
         // console.log("\nЦелевой элемент");
