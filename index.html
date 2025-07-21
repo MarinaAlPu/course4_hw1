@@ -167,7 +167,8 @@
         const textForInput = ">>>" + currentCommentName + ": " + currentCommentText + "\n\n";
         // console.log("\nТекст для инпута");
         // console.log(textForInput);
-        commentInput.textContent = textForInput;
+        console.log(commentInput);
+        commentInput.value = textForInput;
 
         renderComments();
       })
@@ -256,61 +257,44 @@
     setPlaceholder(commentInput, "Введите ваш коментарий");
   });
 
-
-  let isValid = true;
-  let nameTextForComment, commentTextForComment;
-  // обработчик на стадии погружения
   addCommentButton.addEventListener("click", () => {
     const nameInputStatus = validation(nameInput);
     const commentInputStatus = validation(commentInput);
 
-    isValid = nameInputStatus === true && commentInputStatus === true;
-
-    if (isValid) {
-      const nameText = nameInput.value;
-      const commentText = commentInput.value;
-
-      nameTextForComment = nameText.replaceAll("<", "&lt").replaceAll(">", "&gt");
-      console.log(nameTextForComment);
-      commentTextForComment = commentText.replaceAll("<", "&lt").replaceAll(">", "&gt");
-      console.log(commentTextForComment);
+    if (!nameInputStatus || !commentInputStatus) {
+      return
     }
-  }, true);
 
-  // обработчик на стадии всплытия
-  addCommentButton.addEventListener("click", () => {
-    // const nameInputStatus = validation(nameInput);
-    // const commentInputStatus = validation(commentInput);
+    const nameText = nameInput.value;
+    const commentText = commentInput.value;
 
-    if (isValid) {
-      const dateOptions = { day: 'numeric', month: '2-digit', year: '2-digit' };
-      const timeOptions = { hour: 'numeric', minute: 'numeric' };
-
-      const date = (new Date()).toLocaleDateString('ru-RU', dateOptions);
-      const time = (new Date()).toLocaleTimeString('ru-RU', timeOptions);
-
-      const dateForComment = date + " " + time;
-
-      const commentObject = {
-        // name: nameInput.value,
-        name: nameTextForComment,
-        date: dateForComment,
-        // text: commentInput.value,
-        text: commentTextForComment,
-        likesCounter: 0,
-        like: false
-      };
-
-      nameInput.value = "";
-      commentInput.value = "";
+    const nameTextForComment = nameText.replaceAll("<", "&lt").replaceAll(">", "&gt");
+    const commentTextForComment = commentText.replaceAll("<", "&lt").replaceAll(">", "&gt");
 
 
-      comments.push(commentObject);
-      console.log(comments);
+    const dateOptions = { day: 'numeric', month: '2-digit', year: '2-digit' };
+    const timeOptions = { hour: 'numeric', minute: 'numeric' };
 
-      renderComments();
-      initClickCommentListeners();
-    }
+    const date = (new Date()).toLocaleDateString('ru-RU', dateOptions);
+    const time = (new Date()).toLocaleTimeString('ru-RU', timeOptions);
+
+    const dateForComment = date + " " + time;
+
+    const commentObject = {
+      name: nameTextForComment,
+      date: dateForComment,
+      text: commentTextForComment,
+      likesCounter: 0,
+      like: false
+    };
+
+    nameInput.value = "";
+    commentInput.value = "";
+
+    comments.push(commentObject);
+    console.log(comments);
+
+    renderComments();
   });
 
   console.log("It works!");
