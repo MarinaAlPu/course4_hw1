@@ -134,40 +134,24 @@
   // функция навешивания обработчика события на клик по комментарию
   const initClickCommentListeners = () => {
     const existingComments = document.querySelectorAll('li.comment');
-    // console.log("\nСписок комментариев");
-    // console.log(existingComments);
 
     for (const existingComment of existingComments) {
       existingComment.addEventListener("click", () => {
         // получить целевой элемент
         const existingComment = event.target.closest('li.comment');
-        // console.log("\nЦелевой элемент");
-        // console.log(existingComment);
 
         // получить индекс комментария
         const commentIndex = existingComment.dataset.index;
-        // console.log("\nИндекс целевого элемента");
-        // console.log(commentIndex);
 
         // получить комментарий по индексу из массива
         const currentComment = comments[commentIndex];
-        // console.log("\nЦелевой коммент");
-        // console.log(currentComment);
 
         // получить данные для инпута
         const currentCommentName = currentComment.name;
-        // console.log("\nАвтор целевого коммента");
-        // console.log(currentCommentName);
         const currentCommentText = currentComment.text;
-        // console.log("\nТекст целевого коммента");
-        // console.log(currentCommentText);
-
 
         // разместить данные в поле коммента
         const textForInput = ">>>" + currentCommentName + ": " + currentCommentText + "\n\n";
-        // console.log("\nТекст для инпута");
-        // console.log(textForInput);
-        console.log(commentInput);
         commentInput.value = textForInput;
 
         renderComments();
