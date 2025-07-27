@@ -84,11 +84,11 @@
   const commentTemplate =
     `<li class="comment">
         <div class="comment-header">
-          <div class="user-name"></div>
+          <div class="user-name wrap-words"></div>
           <div class="date"></div>
         </div>
         <div class="comment-body">
-          <div class="comment-text"></div>
+          <div class="comment-text wrap-words"></div>
         </div>
         <div class="comment-footer">
           <div class="likes">
@@ -104,6 +104,8 @@
 
     for (const likeButton of likeButtons) {
       likeButton.addEventListener("click", () => {
+        event.stopPropagation();
+
         // получить целевой элемент
         const commentNumber = event.target.closest('li.comment');
 
@@ -129,10 +131,38 @@
     }
   };
 
+  // функция навешивания обработчика события на клик по комментарию
+  const initClickCommentListeners = () => {
+    const existingComments = document.querySelectorAll('li.comment');
+
+    for (const existingComment of existingComments) {
+      existingComment.addEventListener("click", () => {
+        // получить целевой элемент
+        const existingComment = event.target.closest('li.comment');
+
+        // получить индекс комментария
+        const commentIndex = existingComment.dataset.index;
+
+        // получить комментарий по индексу из массива
+        const currentComment = comments[commentIndex];
+
+        // получить данные для инпута
+        const currentCommentName = currentComment.name;
+        const currentCommentText = currentComment.text;
+
+        // разместить данные в поле коммента
+        const textForInput = ">>>" + currentCommentName + ": " + currentCommentText + "\n\n";
+        commentInput.value = textForInput;
+
+        renderComments();
+      })
+    }
+  };
+
   function validation(element) {
-    if (element.value === "") {
+    if ((element.value).trim() === "") {
       element.classList.add("error");
-      // element.placeholder = "Чтобы отправить комментарий заполните это поле";
+      element.value = "";
       element.placeholder = "Заполните это поле";
       return false;
     } else {
@@ -154,11 +184,11 @@
       if (comment.isLiked) {
         return `<li class="comment" data-index="${index}">
         <div class="comment-header">
-          <div class="user-name">${comment.name}</div>
+          <div class="user-name wrap-words">${comment.name}</div>
           <div class="date">${comment.date}</div>
         </div>
         <div class="comment-body">
-          <div class="comment-text">${comment.text}</div>
+          <div class="comment-text wrap-words">${comment.text}</div>
         </div>
         <div class="comment-footer">
           <div class="likes">
@@ -170,11 +200,11 @@
       } else if (!comment.isLiked) {
         return `<li class="comment" data-index="${index}">
         <div class="comment-header">
-          <div class="user-name">${comment.name}</div>
+          <div class="user-name wrap-words">${comment.name}</div>
           <div class="date">${comment.date}</div>
         </div>
         <div class="comment-body">
-          <div class="comment-text">${comment.text}</div>
+          <div class="comment-text wrap-words">${comment.text}</div>
         </div>
         <div class="comment-footer">
           <div class="likes">
@@ -190,6 +220,7 @@
     commentsList.innerHTML = commentsHtml;
 
     initClickLikeListeners();
+    initClickCommentListeners();
   }
 
   renderComments();
@@ -211,37 +242,43 @@
   });
 
   addCommentButton.addEventListener("click", () => {
-    let status = true;
+    const nameInputStatus = validation(nameInput);
+    const commentInputStatus = validation(commentInput);
 
-    status = validation(nameInput);
-    status = validation(commentInput);
-
-
-    if (status === true) {
-      const dateOptions = { day: 'numeric', month: '2-digit', year: '2-digit' };
-      const timeOptions = { hour: 'numeric', minute: 'numeric' };
-
-      const date = (new Date()).toLocaleDateString('ru-RU', dateOptions);
-      const time = (new Date()).toLocaleTimeString('ru-RU', timeOptions);
-
-      const dateForComment = date + " " + time;
-
-      const commentObject = {
-        name: nameInput.value,
-        date: dateForComment,
-        text: commentInput.value,
-        likesCounter: 0,
-        like: false
-      };
-
-      nameInput.value = "";
-      commentInput.value = "";
-
-
-      comments.push(commentObject);
-      // console.log(comments);
-      renderComments();
+    if (!nameInputStatus || !commentInputStatus) {
+      return
     }
+
+    const nameText = nameInput.value;
+    const commentText = commentInput.value;
+
+    const nameTextForComment = nameText.replaceAll("<", "&lt").replaceAll(">", "&gt");
+    const commentTextForComment = commentText.replaceAll("<", "&lt").replaceAll(">", "&gt");
+
+
+    const dateOptions = { day: 'numeric', month: '2-digit', year: '2-digit' };
+    const timeOptions = { hour: 'numeric', minute: 'numeric' };
+
+    const date = (new Date()).toLocaleDateString('ru-RU', dateOptions);
+    const time = (new Date()).toLocaleTimeString('ru-RU', timeOptions);
+
+    const dateForComment = date + " " + time;
+
+    const commentObject = {
+      name: nameTextForComment,
+      date: dateForComment,
+      text: commentTextForComment,
+      likesCounter: 0,
+      like: false
+    };
+
+    nameInput.value = "";
+    commentInput.value = "";
+
+    comments.push(commentObject);
+    console.log(comments);
+
+    renderComments();
   });
 
   console.log("It works!");

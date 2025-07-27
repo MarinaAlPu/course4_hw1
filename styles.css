@@ -46,6 +46,8 @@ body {
   font-size: 16px;
   display: flex;
   justify-content: space-between;
+  /* white-space: nowrap; */
+  gap: 10px;
 }
 
 .comment-footer {
@@ -137,4 +139,17 @@ body {
 .error {
   border: 2px solid red;
   background-color: rgb(253, 184, 184);
+}
+
+.date {
+ min-width: 107px;
+}
+
+.user-name {
+  max-width: 383px;
+}
+
+.wrap-words {
+  overflow-wrap: break-word;
+  /* word-break: break-all; */
 }
