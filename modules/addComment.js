@@ -28,7 +28,9 @@ export const addComment = () => {
   const dateForComment = date + " " + time;
 
   const commentObject = {
-    name: nameTextForComment,
+    author: {
+      name: nameTextForComment,
+    },
     date: dateForComment,
     text: commentTextForComment,
     // likesCounter: 0,
