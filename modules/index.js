@@ -28,5 +28,23 @@ addCommentButton.addEventListener("click", () => {
   renderComments();
 });
 
+// let commetsFromServer = await fetch("https://wedev-api.sky.pro/api/v1/marina-pudovkina/comments", {
+//   method: 'GET',
+// })
+//   .then((response) => {
+//     console.log(response);
+//     console.log("\nСтатус-код ответа: ", response.status);
+//     // let resp = response.json()
+//     // console.log(resp);
+//     return response.json()
+//   })
+//   .then((data) => {
+//     console.log(data.comments);
+//     return data.comments;
+//   })
+
+// console.log("\nСписок комментариев с сервера:");
+// console.log(commetsFromServer);
+
 renderComments();
 

@@ -31,8 +31,10 @@ export const addComment = () => {
     name: nameTextForComment,
     date: dateForComment,
     text: commentTextForComment,
-    likesCounter: 0,
-    like: false
+    // likesCounter: 0,
+    // like: false
+    likes: 0,
+    isLiked: false
   };
 
   nameInput.value = "";
