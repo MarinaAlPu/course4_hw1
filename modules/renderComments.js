@@ -5,6 +5,9 @@ const commentsList = document.querySelector('ul.comments');
 
 
 export function renderComments() {
+  // console.log("\nСписок комментов в рендере");
+  // console.log(comments);
+
   const commentsHtml = comments.map((comment, index) => {
     if (comment.isLiked) {
       return `<li class="comment" data-index="${index}">
