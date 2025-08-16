@@ -19,14 +19,14 @@ comments = await fetch("https://wedev-api.sky.pro/api/v1/marina-pudovkina/commen
   method: 'GET',
 })
   .then((response) => {
-    console.log(response);
-    console.log("\nСтатус-код ответа: ", response.status);
+    // console.log(response);
+    // console.log("\nСтатус-код ответа: ", response.status);
     return response.json()
   })
   .then((data) => {
-    console.log(data.comments);
+    // console.log(data.comments);
     return data.comments;
   })
 
-console.log("\nСписок комментариев с сервера:");
+console.log("\nСписок комментариев с сервера в файле comments.js:");
 console.log(comments);

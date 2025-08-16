@@ -17,19 +17,19 @@ export const initClickLikeListeners = () => {
 
       // получить индекс комментария
       const commentId = Number(commentNumber.dataset.id);
-      console.log("\nId комментария: ", commentId);
-      console.log(typeof(commentId));
+      // console.log("\nId комментария: ", commentId);
+      // console.log(typeof(commentId));
 
-      console.log("\nСписок комментариев:");
-      console.log(comments);
-      // получить комментарий по индексу из массива
-      // const currentComment = comments[commentId];
-      console.log("\nId комментария из комментария по индексу:");
-      console.log(comments[0].id);
+      // console.log("\nСписок комментариев:");
+      // console.log(comments);
+      // // получить комментарий по индексу из массива
+      // // const currentComment = comments[commentId];
+      // console.log("\nId комментария из комментария по индексу:");
+      // console.log(comments[0].id);
       
       const currentComment = comments.find(comment => comment.id === commentId);
-      console.log("\nТекущий комментарий:");
-      console.log(currentComment);
+      // console.log("\nТекущий комментарий:");
+      // console.log(currentComment);
 
       // проверить статус лайка по индексу в объекте комментария в массиве
       // const currentisLiked = comments[commentId].isLiked;
@@ -67,8 +67,8 @@ export const initClickCommentListeners = () => {
       // получить комментарий по индексу из массива
       // const currentComment = comments[commentIndex];
       const currentComment = comments.find(comment => comment.id === commentId);
-      console.log("\nТекущий комментарий:");
-      console.log(currentComment);
+      // console.log("\nТекущий комментарий:");
+      // console.log(currentComment);
 
       // получить данные для инпута
       const currentCommentName = currentComment.author.name;
