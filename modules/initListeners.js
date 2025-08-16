@@ -62,13 +62,16 @@ export const initClickCommentListeners = () => {
       const existingComment = event.target.closest('li.comment');
 
       // получить индекс комментария
-      const commentIndex = existingComment.dataset.index;
+      const commentId = Number(existingComment.dataset.id);
 
       // получить комментарий по индексу из массива
-      const currentComment = comments[commentIndex];
+      // const currentComment = comments[commentIndex];
+      const currentComment = comments.find(comment => comment.id === commentId);
+      console.log("\nТекущий комментарий:");
+      console.log(currentComment);
 
       // получить данные для инпута
-      const currentCommentName = currentComment.name;
+      const currentCommentName = currentComment.author.name;
       const currentCommentText = currentComment.text;
 
       // разместить данные в поле коммента
