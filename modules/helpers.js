@@ -22,7 +22,7 @@ function formatText(text) {
   return text.replaceAll("<", "&lt").replaceAll(">", "&gt");
 }
 
-function formateDate(dateFromServer) {
+function formateDate(dateFromServer = new Date()) {
   const dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
   const timeOptions = { hour: 'numeric', minute: 'numeric' };
 
@@ -35,19 +35,19 @@ function formateDate(dateFromServer) {
 }
 
 function normalizeData(dataFromServer) {
-  console.log("\nДанные с сервера для нормализации");
-  console.log(dataFromServer);
+  // console.log("\nДанные с сервера для нормализации");
+  // console.log(dataFromServer);
   return (dataFromServer.comments).map((comment) => {
-    console.log("\nКоммент в нормализации");
-    console.log(comment);
-    console.log("\nОбъект коммента в нормализации");
-    console.log({
-      name: comment.author.name,
-      date: formateDate(comment.date),
-      text: comment.text,
-      likesCounter: comment.likes,
-      isLiked: comment.isLiked,
-    });
+    // console.log("\nКоммент в нормализации");
+    // console.log(comment);
+    // console.log("\nОбъект коммента в нормализации");
+    // console.log({
+    //   name: comment.author.name,
+    //   date: formateDate(comment.date),
+    //   text: comment.text,
+    //   likesCounter: comment.likes,
+    //   isLiked: comment.isLiked,
+    // });
     return {
       name: comment.author.name,
       date: formateDate(comment.date),
