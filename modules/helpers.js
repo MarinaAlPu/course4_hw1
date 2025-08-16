@@ -34,5 +34,29 @@ function formateDate(dateFromServer) {
   return dateForComment;
 }
 
+function normalizeData(dataFromServer) {
+  console.log("\nДанные с сервера для нормализации");
+  console.log(dataFromServer);
+  return (dataFromServer.comments).map((comment) => {
+    console.log("\nКоммент в нормализации");
+    console.log(comment);
+    console.log("\nОбъект коммента в нормализации");
+    console.log({
+      name: comment.author.name,
+      date: formateDate(comment.date),
+      text: comment.text,
+      likesCounter: comment.likes,
+      isLiked: comment.isLiked,
+    });
+    return {
+      name: comment.author.name,
+      date: formateDate(comment.date),
+      text: comment.text,
+      likesCounter: comment.likes,
+      isLiked: comment.isLiked,
+    }
+  })
+}
 
-export { validation, deleteClass, setPlaceholder, formatText, formateDate }
+
+export { validation, deleteClass, setPlaceholder, formatText, formateDate, normalizeData }
