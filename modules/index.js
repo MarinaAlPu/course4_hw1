@@ -1,6 +1,9 @@
 import { renderComments } from "./renderComments.js";
 import { deleteClass, setPlaceholder } from "./helpers.js"
 import { addComment } from "./addComment.js";
+import { updateComments } from "./comments.js";
+import { getComments } from "./api.js";
+import { normalizeData } from "./helpers.js";
 
 const nameInput = document.getElementById('name');
 const commentInput = document.getElementById('commentText');
@@ -25,8 +28,18 @@ commentInput.addEventListener("blur", () => {
 
 addCommentButton.addEventListener("click", () => {
   addComment();
-  renderComments();
+  getComments()
+    .then((data) => {
+      const normalizeСomments = normalizeData(data);
+      updateComments(normalizeСomments);
+      renderComments();
+    })
+    
 });
 
-renderComments();
-
+getComments()
+  .then((data) => {
+    const normalizeСomments = normalizeData(data);
+    updateComments(normalizeСomments);
+    renderComments();
+  })

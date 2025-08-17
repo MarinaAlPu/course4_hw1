@@ -1,5 +1,6 @@
-import { comments } from "./comments.js";
-import { validation, formatText } from "./helpers.js"
+import { validation, formatText, formateDate } from "./helpers.js"
+import { sendComment } from "./api.js";
+
 
 const nameInput = document.getElementById('name');
 const commentInput = document.getElementById('commentText');
@@ -19,13 +20,7 @@ export const addComment = () => {
   const nameTextForComment = formatText(nameText);
   const commentTextForComment = formatText(commentText);
 
-  const dateOptions = { day: 'numeric', month: '2-digit', year: '2-digit' };
-  const timeOptions = { hour: 'numeric', minute: 'numeric' };
-
-  const date = (new Date()).toLocaleDateString('ru-RU', dateOptions);
-  const time = (new Date()).toLocaleTimeString('ru-RU', timeOptions);
-
-  const dateForComment = date + " " + time;
+  const dateForComment = formateDate();
 
   const commentObject = {
     name: nameTextForComment,
@@ -38,6 +33,5 @@ export const addComment = () => {
   nameInput.value = "";
   commentInput.value = "";
 
-
-  comments.push(commentObject);
+  sendComment(commentObject.text, commentObject.name);
 };
