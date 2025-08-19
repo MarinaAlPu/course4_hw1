@@ -1,13 +1,12 @@
 import { comments } from "./comments.js";
-import {initClickLikeListeners, initClickCommentListeners} from "./initListeners.js"
+import { initClickLikeListeners, initClickCommentListeners } from "./initListeners.js"
 
 const commentsList = document.querySelector('ul.comments');
+const loaderComments = document.querySelector('.loader-comments');
+const loaderComment = document.querySelector('.loader-comment');
 
 
 export function renderComments() {
-  // console.log("\nСписок комментов в рендере");
-  // console.log(comments);
-
   const commentsHtml = comments.map((comment, index) => {
     if (comment.isLiked) {
       return `<li class="comment" data-index="${index}">
@@ -49,4 +48,7 @@ export function renderComments() {
 
   initClickLikeListeners();
   initClickCommentListeners();
+
+  loaderComments.style.display = "none";
+  commentsList.style.display = "block";
 }
