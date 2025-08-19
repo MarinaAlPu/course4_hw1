@@ -46,5 +46,13 @@ function normalizeData(dataFromServer) {
   })
 }
 
+function delay(interval = 300) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, interval);
+  });
+}
 
-export { validation, deleteClass, setPlaceholder, formatText, formateDate, normalizeData }
+
+export { validation, deleteClass, setPlaceholder, formatText, formateDate, normalizeData, delay }
