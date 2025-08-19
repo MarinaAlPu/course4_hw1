@@ -19,6 +19,17 @@ body {
   margin: 0;
   padding: 0;
   list-style: none;
+  margin-bottom: 30px;
+  /* display: none; */
+}
+
+/* .loader-comments {
+  display: block;  
+} */
+
+.loader-comment {
+  /* margin-top: 20px; */
+  display: none;
 }
 
 .comment,
