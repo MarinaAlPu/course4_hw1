@@ -22,7 +22,7 @@ body {
   /* display: none; */
 }
 
-.comment:not(:last-child) {
+.comment {
   margin-bottom: 20px;
   /* display: none; */
 }
@@ -107,7 +107,7 @@ body {
 
 .add-form {
   padding: 20px;
-  margin-top: 48px;
+  margin-top: 18px;
   display: flex;
   flex-direction: column;
 }
