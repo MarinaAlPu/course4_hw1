@@ -3,7 +3,7 @@ import { deleteClass, setPlaceholder } from "./helpers.js"
 import { addComment } from "./addComment.js";
 import { updateComments } from "./comments.js";
 import { getComments } from "./api.js";
-import { normalizeData, delay } from "./helpers.js";
+import { normalizeData } from "./helpers.js";
 
 const nameInput = document.getElementById('name');
 const commentInput = document.getElementById('commentText');
@@ -38,7 +38,6 @@ addCommentButton.addEventListener("click", () => {
   loaderComment.style.display = "block";
   form.style.display = "none";
   addComment();
-  delay(2000).then(() => {
     getComments()
       .then((data) => {
         const normalizeСomments = normalizeData(data);
@@ -46,9 +45,7 @@ addCommentButton.addEventListener("click", () => {
         loaderComment.style.display = "none";
         form.style.display = "block";
         renderComments();
-
       })
-  });
 });
 
 getComments()
