@@ -129,6 +129,8 @@ body {
   margin-top: 12px;
   padding: 22px;
   resize: none;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .add-form-row {
