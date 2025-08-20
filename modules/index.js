@@ -37,15 +37,7 @@ commentsList.style.display = "none";
 addCommentButton.addEventListener("click", () => {
   loaderComment.style.display = "block";
   form.style.display = "none";
-  addComment();
-    getComments()
-      .then((data) => {
-        const normalizeСomments = normalizeData(data);
-        updateComments(normalizeСomments);
-        loaderComment.style.display = "none";
-        form.style.display = "block";
-        renderComments();
-      })
+  addComment()
 });
 
 getComments()

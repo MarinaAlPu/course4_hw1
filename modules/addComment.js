@@ -1,9 +1,12 @@
-import { validation, formatText, formateDate } from "./helpers.js"
-import { sendComment } from "./api.js";
-
+import { validation, formatText, formateDate, normalizeData } from "./helpers.js"
+import { getComments, sendComment } from "./api.js";
+import { updateComments } from "./comments.js";
+import { renderComments } from "./renderComments.js";
 
 const nameInput = document.getElementById('name');
 const commentInput = document.getElementById('commentText');
+const loaderComment = document.querySelector('.loader-comment');
+const form = document.querySelector('.add-form')
 
 
 export const addComment = () => {
@@ -33,5 +36,15 @@ export const addComment = () => {
   nameInput.value = "";
   commentInput.value = "";
 
-  sendComment(commentObject.text, commentObject.name);
+  sendComment(commentObject.text, commentObject.name)
+    .then(() => {
+      getComments()
+        .then((data) => {
+          const normalizeСomments = normalizeData(data);
+          updateComments(normalizeСomments);
+          loaderComment.style.display = "none";
+          form.style.display = "block";
+          renderComments();
+        })
+    });
 };
