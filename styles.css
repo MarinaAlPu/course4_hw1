@@ -19,6 +19,21 @@ body {
   margin: 0;
   padding: 0;
   list-style: none;
+  /* display: none; */
+}
+
+.comment {
+  margin-bottom: 20px;
+  /* display: none; */
+}
+
+/* .loader-comments {
+  display: block;  
+} */
+
+.loader-comment {
+  /* margin-top: 20px; */
+  display: none;
 }
 
 .comment,
@@ -92,7 +107,7 @@ body {
 
 .add-form {
   padding: 20px;
-  margin-top: 48px;
+  margin-top: 18px;
   display: flex;
   flex-direction: column;
 }
@@ -114,6 +129,8 @@ body {
   margin-top: 12px;
   padding: 22px;
   resize: none;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .add-form-row {
@@ -151,4 +168,26 @@ body {
 .wrap-words {
   overflow-wrap: break-word;
   /* word-break: break-all; */
+}
+
+@keyframes scale {
+   from {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(1.5);
+    }
+    50% {
+      transform: scale(2);
+    }
+    75% {
+      transform: scale(1.5);
+    }
+    to {
+      transform: scale(1);
+   }
+}
+
+.-loading-like {
+   animation: scale 2s linear infinite;
 }

@@ -8,6 +8,10 @@ import { normalizeData } from "./helpers.js";
 const nameInput = document.getElementById('name');
 const commentInput = document.getElementById('commentText');
 const addCommentButton = document.querySelector('.add-form-button');
+const commentsList = document.querySelector('ul.comments');
+const loaderComments = document.querySelector('.loader-comments');
+const loaderComment = document.querySelector('.loader-comment');
+const form = document.querySelector('.add-form')
 
 
 nameInput.addEventListener("click", () => {
@@ -26,15 +30,14 @@ commentInput.addEventListener("blur", () => {
   setPlaceholder(commentInput, "Введите ваш коментарий");
 });
 
+loaderComments.style.display = "block";
+loaderComment.style.display = "none";
+commentsList.style.display = "none";
+
 addCommentButton.addEventListener("click", () => {
-  addComment();
-  getComments()
-    .then((data) => {
-      const normalizeСomments = normalizeData(data);
-      updateComments(normalizeСomments);
-      renderComments();
-    })
-    
+  loaderComment.style.display = "block";
+  form.style.display = "none";
+  addComment()
 });
 
 getComments()

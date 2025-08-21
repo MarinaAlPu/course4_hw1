@@ -1,6 +1,6 @@
 import { comments } from "./comments.js";
 import { renderComments } from "./renderComments.js";
-
+import { delay } from "./helpers.js";
 
 const commentInput = document.getElementById('commentText');
 
@@ -8,10 +8,16 @@ const commentInput = document.getElementById('commentText');
 export const initClickLikeListeners = () => {
   const likeButtons = document.querySelectorAll(".like-button");
 
+  let isLikeLoading = false;
   for (const likeButton of likeButtons) {
     likeButton.addEventListener("click", (event) => {
       event.stopPropagation();
 
+      if (isLikeLoading) {
+        return;
+      }
+
+      isLikeLoading = true;
       // получить целевой элемент
       const commentNumber = event.target.closest('li.comment');
 
@@ -22,17 +28,28 @@ export const initClickLikeListeners = () => {
       const currentComment = comments[commentIndex];
 
       // проверить статус лайка по индексу в объекте комментария в массиве
-      const currentisLiked = comments[commentIndex].isLiked;
+      const currentisLiked = currentComment.isLiked;
 
-      if (currentisLiked) {
-        comments[commentIndex].isLiked = false;
-        comments[commentIndex].likesCounter--;
-      } else if (!currentisLiked) {
-        comments[commentIndex].isLiked = true;
-        comments[commentIndex].likesCounter++;
-      }
+      likeButton.classList.add('-loading-like')
+      delay(2000)
+        .then(() => {
+          if (isLikeLoading === true) {
+            if (currentisLiked) {
+              currentComment.isLiked = false;
+              currentComment.likesCounter--;
+            } else if (!currentisLiked) {
+              currentComment.isLiked = true;
+              currentComment.likesCounter++;
+            }
 
-      renderComments();
+            likeButton.classList.remove('-loading-like')
+
+            renderComments();
+          }
+        })
+        .then(() => {
+          isLikeLoading = false;
+        })
     })
   }
 };
