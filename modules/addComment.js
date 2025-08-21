@@ -38,13 +38,13 @@ export const addComment = () => {
 
   sendComment(commentObject.text, commentObject.name)
     .then(() => {
-      getComments()
-        .then((data) => {
-          const normalizeСomments = normalizeData(data);
-          updateComments(normalizeСomments);
-          loaderComment.style.display = "none";
-          form.style.display = "block";
-          renderComments();
-        })
-    });
+      return getComments()
+    })
+    .then((data) => {
+      const normalizeСomments = normalizeData(data);
+      updateComments(normalizeСomments);
+      loaderComment.style.display = "none";
+      form.style.display = "block";
+      renderComments();
+    })
 };
