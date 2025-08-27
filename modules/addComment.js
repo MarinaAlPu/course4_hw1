@@ -33,8 +33,8 @@ export const addComment = () => {
     like: false
   };
 
-  nameInput.value = "";
-  commentInput.value = "";
+  // nameInput.value = "";
+  // commentInput.value = "";
 
   sendComment(commentObject.text, commentObject.name)
     .then(() => {
@@ -43,8 +43,17 @@ export const addComment = () => {
     .then((data) => {
       const normalizeСomments = normalizeData(data);
       updateComments(normalizeСomments);
+      // loaderComment.style.display = "none";
+      // form.style.display = "block";
+      renderComments();
+      nameInput.value = "";
+      commentInput.value = "";
+    })
+    .catch(() => {
+      alert("Кажется, у вас сломался интернет, попробуйте позже")
+    })
+    .finally(() => {
       loaderComment.style.display = "none";
       form.style.display = "block";
-      renderComments();
     })
 };
