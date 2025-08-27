@@ -52,27 +52,13 @@ export const addComment = () => {
       commentInput.value = "";
     })
     .catch((error) => {
-      if (checkErrorMessage(error)) {
+      if (error.message === "Сервер сломался, попробуй позже") {
+        addComment()
+      } else if (checkErrorMessage(error)) {
         alert(error.message);
       } else {
         alert("Кажется, у вас сломался интернет, попробуйте позже");
       }
-
-      // if (error.message === "Сервер сломался, попробуй позже" || error.message === "Имя и комментарий должны быть не короче 3 символов" || (error.message).includes("Неопознанная ошибка")) {
-      //   alert(error.message);
-      // } else {
-      //   alert("Кажется, у вас сломался интернет, попробуйте позже");
-      // }
-
-      // if (error.message === "Сервер сломался, попробуй позже") {
-      //   alert("Сервер сломался, попробуй позже");
-      // } else if(error.message === "Имя и комментарий должны быть не короче 3 символов") {
-      //   alert("Имя и комментарий должны быть не короче 3 символов");
-      // } else if((error.message).includes("Неопознанная ошибка")) {
-      //   alert(error.message);
-      // } else {
-      //   alert("Кажется, у вас сломался интернет, попробуйте позже");
-      // }
     })
     .finally(() => {
       loaderComment.style.display = "none";
