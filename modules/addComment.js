@@ -1,4 +1,4 @@
-import { validation, formatText, formateDate, normalizeData } from "./helpers.js"
+import { validation, formatText, formateDate, normalizeData, checkErrorMessage } from "./helpers.js"
 import { getComments, sendComment } from "./api.js";
 import { updateComments } from "./comments.js";
 import { renderComments } from "./renderComments.js";
@@ -36,6 +36,13 @@ export const addComment = () => {
   sendComment(commentObject.text, commentObject.name)
     .then(() => {
       return getComments()
+        .catch((error) => {
+          if (checkErrorMessage) {
+            alert(error.message);
+          } else {
+            alert("Неизвестная ошибка:", error);
+          }
+        });
     })
     .then((data) => {
       const normalizeСomments = normalizeData(data);
@@ -45,13 +52,27 @@ export const addComment = () => {
       commentInput.value = "";
     })
     .catch((error) => {
-      if (error.message === "Сервер сломался, попробуй позже") {
-        alert("Сервер сломался, попробуй позже");
-      } else if(error.message === "Имя и комментарий должны быть не короче 3 символов") {
-        alert("Имя и комментарий должны быть не короче 3 символов");
+      if (checkErrorMessage(error)) {
+        alert(error.message);
       } else {
         alert("Кажется, у вас сломался интернет, попробуйте позже");
       }
+
+      // if (error.message === "Сервер сломался, попробуй позже" || error.message === "Имя и комментарий должны быть не короче 3 символов" || (error.message).includes("Неопознанная ошибка")) {
+      //   alert(error.message);
+      // } else {
+      //   alert("Кажется, у вас сломался интернет, попробуйте позже");
+      // }
+
+      // if (error.message === "Сервер сломался, попробуй позже") {
+      //   alert("Сервер сломался, попробуй позже");
+      // } else if(error.message === "Имя и комментарий должны быть не короче 3 символов") {
+      //   alert("Имя и комментарий должны быть не короче 3 символов");
+      // } else if((error.message).includes("Неопознанная ошибка")) {
+      //   alert(error.message);
+      // } else {
+      //   alert("Кажется, у вас сломался интернет, попробуйте позже");
+      // }
     })
     .finally(() => {
       loaderComment.style.display = "none";
