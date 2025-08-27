@@ -33,9 +33,6 @@ export const addComment = () => {
     like: false
   };
 
-  // nameInput.value = "";
-  // commentInput.value = "";
-
   sendComment(commentObject.text, commentObject.name)
     .then(() => {
       return getComments()
@@ -43,14 +40,18 @@ export const addComment = () => {
     .then((data) => {
       const normalizeСomments = normalizeData(data);
       updateComments(normalizeСomments);
-      // loaderComment.style.display = "none";
-      // form.style.display = "block";
       renderComments();
       nameInput.value = "";
       commentInput.value = "";
     })
-    .catch(() => {
-      alert("Кажется, у вас сломался интернет, попробуйте позже")
+    .catch((error) => {
+      if (error.message === "Сервер сломался, попробуй позже") {
+        alert("Сервер сломался, попробуй позже");
+      } else if(error.message === "Имя и комментарий должны быть не короче 3 символов") {
+        alert("Имя и комментарий должны быть не короче 3 символов");
+      } else {
+        alert("Кажется, у вас сломался интернет, попробуйте позже");
+      }
     })
     .finally(() => {
       loaderComment.style.display = "none";
