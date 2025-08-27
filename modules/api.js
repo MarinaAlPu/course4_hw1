@@ -13,6 +13,12 @@ const sendComment = (text, name) => {
     body: JSON.stringify({ "text": text, "name": name })
   })
     .then((response) => {
+      // console.log("\nСтатус ответа на post-запрос: ");
+      // console.log(response.status);
+      if (response.status === 400) {
+        alert("Имя и комментарий должны быть не короче 3 символов")
+      }
+
       response.json()
     })
 }
