@@ -54,5 +54,11 @@ function delay(interval = 300) {
   });
 }
 
+function checkErrorMessage(error) {
+  // const errorMessages = ["Сервер сломался, попробуй позже", "Имя и комментарий должны быть не короче 3 символов", "Неопознанная ошибка", "Страница не найдена"];
+  const errorMessages = ["Имя и комментарий должны быть не короче 3 символов", "Неопознанная ошибка", "Страница не найдена"];
+  return errorMessages.includes(error.message) || (error.message).includes("Неопознанная ошибка");
+}
 
-export { validation, deleteClass, setPlaceholder, formatText, formateDate, normalizeData, delay }
+
+export { validation, deleteClass, setPlaceholder, formatText, formateDate, normalizeData, delay, checkErrorMessage }

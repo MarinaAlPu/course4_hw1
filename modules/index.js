@@ -1,5 +1,5 @@
 import { renderComments } from "./renderComments.js";
-import { deleteClass, setPlaceholder } from "./helpers.js"
+import { deleteClass, setPlaceholder, checkErrorMessage } from "./helpers.js"
 import { addComment } from "./addComment.js";
 import { updateComments } from "./comments.js";
 import { getComments } from "./api.js";
@@ -46,3 +46,10 @@ getComments()
     updateComments(normalizeСomments);
     renderComments();
   })
+  .catch((error) => {
+    if (checkErrorMessage) {
+      alert(error.message);
+    } else {
+      alert("Неизвестная ошибка:", error);
+    }
+  });

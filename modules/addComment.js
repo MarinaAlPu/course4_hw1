@@ -1,4 +1,4 @@
-import { validation, formatText, formateDate, normalizeData } from "./helpers.js"
+import { validation, formatText, formateDate, normalizeData, checkErrorMessage } from "./helpers.js"
 import { getComments, sendComment } from "./api.js";
 import { updateComments } from "./comments.js";
 import { renderComments } from "./renderComments.js";
@@ -33,18 +33,35 @@ export const addComment = () => {
     like: false
   };
 
-  nameInput.value = "";
-  commentInput.value = "";
-
   sendComment(commentObject.text, commentObject.name)
     .then(() => {
       return getComments()
+        .catch((error) => {
+          if (checkErrorMessage) {
+            alert(error.message);
+          } else {
+            alert("Неизвестная ошибка:", error);
+          }
+        });
     })
     .then((data) => {
       const normalizeСomments = normalizeData(data);
       updateComments(normalizeСomments);
+      renderComments();
+      nameInput.value = "";
+      commentInput.value = "";
+    })
+    .catch((error) => {
+      if (error.message === "Сервер сломался, попробуй позже") {
+        addComment()
+      } else if (checkErrorMessage(error)) {
+        alert(error.message);
+      } else {
+        alert("Кажется, у вас сломался интернет, попробуйте позже");
+      }
+    })
+    .finally(() => {
       loaderComment.style.display = "none";
       form.style.display = "block";
-      renderComments();
     })
 };
