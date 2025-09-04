@@ -1,7 +1,10 @@
 import { comments } from "./comments.js";
 import { renderComments } from "./renderComments.js";
 import { delay } from "./helpers.js";
+import { addComment } from "./addComment.js";
+import { deleteClass, setPlaceholder, checkErrorMessage } from "./helpers.js"
 
+const nameInput = document.getElementById('name');
 const commentInput = document.getElementById('commentText');
 
 
@@ -81,3 +84,51 @@ export const initClickCommentListeners = () => {
     })
   }
 };
+
+// обработчик клика по полю "Имя"
+export const initNameDeleteClass = () => {
+  nameInput.addEventListener("click", () => {
+    deleteClass(nameInput, "error");
+  });
+}
+
+// обработчик клика по полю "Текст комментария"
+export const initCommentTextDeleteClass = () => {
+  commentInput.addEventListener("click", () => {
+    deleteClass(commentInput, "error");
+  });
+}
+
+// обработчик события потери фокуса на поле "Имя"
+export const initSetNamePlaceholder = () => {
+  nameInput.addEventListener("blur", () => {
+    setPlaceholder(nameInput, "Введите ваше имя");
+  });
+}
+
+// обработчик события потери фокуса на поле  "Текст комментария"
+export const initSetCommentTextPlaceholder = () => {
+  commentInput.addEventListener("blur", () => {
+    setPlaceholder(commentInput, "Введите ваш коментарий");
+  });
+}
+
+// функция навешивания обработчика на кнопку добавления комментария
+export const initAddCommentListener = () => {
+  const addCommentButton = document.querySelector('.add-form-button');
+  const commentsList = document.querySelector('ul.comments');
+  const loaderComments = document.querySelector('.loader-comments');
+  const loaderComment = document.querySelector('.loader-comment');
+  const form = document.querySelector('.add-form')
+
+
+  loaderComments.style.display = "block";
+  loaderComment.style.display = "none";
+  commentsList.style.display = "none";
+
+  addCommentButton.addEventListener("click", () => {
+    loaderComment.style.display = "block";
+    form.style.display = "none";
+    addComment()
+  });
+}

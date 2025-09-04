@@ -1,9 +1,11 @@
 body {
   margin: 0;
+  font-family: Helvetica;
+  box-sizing: border-box;
 }
 
 .container {
-  font-family: Helvetica;
+  /* font-family: Helvetica; */
   color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -105,7 +107,9 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg width='22' height='20' viewBox='0 0 22 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15.95 0C14.036 0 12.199 0.882834 11 2.26703C9.801 0.882834 7.964 0 6.05 0C2.662 0 0 2.6267 0 5.99455C0 10.1035 3.74 13.4714 9.405 18.5613L11 20L12.595 18.5613C18.26 13.4714 22 10.1035 22 5.99455C22 2.6267 19.338 0 15.95 0Z' fill='%23BCEC30'/%3E%3C/svg%3E");
 }
 
-.add-form {
+.add-form,
+.login-form,
+.registration-form {
   padding: 20px;
   margin-top: 18px;
   display: flex;
@@ -113,7 +117,14 @@ body {
 }
 
 .add-form-name,
-.add-form-text {
+.add-form-text,
+.login-form-login,
+.login-form-password,
+.login-form-login-button,
+.login-form-registration-button,
+.registration-form-login,
+.registration-form-name,
+.registration-form-password {
   font-size: 16px;
   font-family: Helvetica;
   border-radius: 8px;
@@ -138,7 +149,10 @@ body {
   justify-content: flex-end;
 }
 
-.add-form-button {
+.add-form-button,
+.login-form-login-button,
+.login-form-registration-button,
+.registration-form-button {
   margin-top: 24px;
   font-size: 24px;
   padding: 10px 20px;
@@ -148,7 +162,9 @@ body {
   cursor: pointer;
 }
 
-.add-form-button:hover {
+.add-form-button:hover,
+.login-form-button:hover,
+.registration-form-button:hover {
   opacity: 0.9;
 }
 
@@ -171,23 +187,85 @@ body {
 }
 
 @keyframes scale {
-   from {
-      transform: scale(1);
-    }
-    25% {
-      transform: scale(1.5);
-    }
-    50% {
-      transform: scale(2);
-    }
-    75% {
-      transform: scale(1.5);
-    }
-    to {
-      transform: scale(1);
-   }
+  from {
+    transform: scale(1);
+  }
+
+  25% {
+    transform: scale(1.5);
+  }
+
+  50% {
+    transform: scale(2);
+  }
+
+  75% {
+    transform: scale(1.5);
+  }
+
+  to {
+    transform: scale(1);
+  }
 }
 
 .-loading-like {
-   animation: scale 2s linear infinite;
+  animation: scale 2s linear infinite;
+}
+
+.title {
+  /* font-family: Helvetica; */
+  color: #ffffff;
+  font-size: 32px;
+  background: #202020;
+}
+
+.login-form,
+.registration-form {
+  width: 400px;
+  box-sizing: border-box;
+  background: radial-gradient(75.42% 75.42% at 50% 42.37%,
+      rgba(53, 53, 53, 0) 22.92%,
+      #7334ea 100%);
+  filter: drop-shadow(0px 20px 67px rgba(0, 0, 0, 0.08));
+  border-radius: 20px;
+  gap: 20px;
+}
+
+.login-form-login,
+.login-form-password,
+.login-form-login-button,
+.login-form-registration-button,
+.registration-form-login,
+.registration-form-name,
+.registration-form-password {
+  padding: 11px 22px;
+}
+
+.link-container {
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* padding: 20px; */
+  background: #202020;
+}
+
+#auth-link {
+  font-size: 18px;
+}
+
+#auth-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.login-form-registration-button {
+  margin-top: 0;
+}
+
+.login-form-button-container {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
 }
