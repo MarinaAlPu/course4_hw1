@@ -1,9 +1,11 @@
 import { comments } from "./comments.js";
 import { initClickLikeListeners, initClickCommentListeners } from "./initListeners.js"
 
-const commentsList = document.querySelector('ul.comments');
+// const commentsList = document.querySelector('ul.comments');
+const app = document.getElementById("app");
 const loaderComments = document.querySelector('.loader-comments');
 const loaderComment = document.querySelector('.loader-comment');
+const commentsList = document.querySelector('ul.comments');
 
 
 export function renderComments() {
@@ -44,7 +46,8 @@ export function renderComments() {
   })
     .join("");
 
-  commentsList.innerHTML = commentsHtml;
+  // commentsList.innerHTML = commentsHtml;
+  app.innerHTML = commentsHtml;
 
   initClickLikeListeners();
   initClickCommentListeners();

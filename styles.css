@@ -260,7 +260,12 @@ body {
   cursor: pointer;
 }
 
+.login-form-registration-button {
+  margin-top: 0;
+}
+
 .login-form-button-container {
   display: flex;
   gap: 20px;
+  flex-direction: column;
 }

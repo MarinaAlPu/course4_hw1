@@ -1,7 +1,7 @@
 const baseUrl = "https://wedev-api.sky.pro/api/v2/marina-pudovkina";
 const authUrl = "https://wedev-api.sky.pro/api/user";
 
-let token = "bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck";
+let token = "";
 
 export const updateToken = (newToken) => {
   token = newToken;
@@ -80,7 +80,7 @@ const sendComment = (text, name) => {
 
 const login = (login, password) => {
   return fetch(`${authUrl}/login`, {
-    method: POST,
+    method: "POST",
     body: JSON.stringify({
       login,
       password
@@ -92,8 +92,16 @@ const login = (login, password) => {
 }
 
 const registration = (login, name, password) => {
+  let body = JSON.stringify({
+    login,
+    name,
+    password
+  })
+  console.log("\nЭто body в post-запросе registration:");
+  console.log(body);
+  console.log("Тип данных body: ", typeof (body));
   return fetch(authUrl, {
-    method: POST,
+    method: "POST",
     body: JSON.stringify({
       login,
       name,
@@ -107,7 +115,7 @@ const registration = (login, name, password) => {
 
 const getUsers = () => {
   return fetch(authUrl, {
-    method: GET
+    method: "GET"
   })
     .then((response) => {
       return response.json()
