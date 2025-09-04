@@ -3,6 +3,10 @@ const authUrl = "https://wedev-api.sky.pro/api/user";
 
 let token = "bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck";
 
+export const updateToken = (newToken) => {
+  token = newToken;
+}
+
 
 const getComments = () => {
   return fetch(`${baseUrl}/comments`, {
