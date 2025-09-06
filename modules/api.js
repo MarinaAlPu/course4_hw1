@@ -92,14 +92,6 @@ const login = (login, password) => {
 }
 
 const registration = (login, name, password) => {
-  let body = JSON.stringify({
-    login,
-    name,
-    password
-  })
-  console.log("\nЭто body в post-запросе registration:");
-  console.log(body);
-  console.log("Тип данных body: ", typeof (body));
   return fetch(authUrl, {
     method: "POST",
     body: JSON.stringify({
@@ -109,6 +101,7 @@ const registration = (login, name, password) => {
     })
   })
     .then((response) => {
+      // console.log(response);
       return response.json()
     })
 }

@@ -24,10 +24,7 @@ export const renderLogin = () => {
   const regButton = document.querySelector(".login-form-registration-button");
 
   loginButton.addEventListener("click", () => {
-    login({
-      login: loginInput.value,
-      password: passwordInput.value
-    })
+    login(loginInput.value, passwordInput.value)
       .then((responseData) => {
         console.log(responseData);
         console.log(responseData.user.token);

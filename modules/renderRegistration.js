@@ -21,11 +21,7 @@ export const renderRegistration = () => {
   const passwordInput = document.getElementById("password");
 
   regButton.addEventListener("click", () => {
-    registration({
-      login: loginInput.value,
-      name: nameInput.value,
-      password: passwordInput.value
-    })
+    registration(loginInput.value, nameInput.value, passwordInput.value)
       .then((responseData) => {
         console.log(responseData);
         // console.log(responseData.user.token);
