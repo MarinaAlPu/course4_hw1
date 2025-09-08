@@ -1,10 +1,16 @@
 const baseUrl = "https://wedev-api.sky.pro/api/v2/marina-pudovkina";
 const authUrl = "https://wedev-api.sky.pro/api/user";
 
-let token = "";
+export let token = "";
 
 export const updateToken = (newToken) => {
   token = newToken;
+}
+
+export let name = "";
+
+export const getName = (newName) => {
+  name = newName;
 }
 
 
@@ -17,6 +23,7 @@ const getComments = () => {
       // console.log(response.status);
 
       if (response.status === 200) {
+        // console.log(response.json());
         return response.json();
         // } else if (response.status === 401) {
         //   throw new Error("Вы не авторизовались");
@@ -48,6 +55,9 @@ const getComments = () => {
 const sendComment = (text, name) => {
   return fetch(`${baseUrl}/comments`, {
     method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify({ "text": text, "name": name, forceError: true })
   })
     .then((response) => {

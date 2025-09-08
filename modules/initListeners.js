@@ -2,7 +2,7 @@ import { comments } from "./comments.js";
 import { renderComments } from "./renderComments.js";
 import { delay } from "./helpers.js";
 import { addComment } from "./addComment.js";
-import { deleteClass, setPlaceholder, checkErrorMessage } from "./helpers.js"
+import { deleteClass, setPlaceholder, checkErrorMessage, normalizeData } from "./helpers.js"
 
 const nameInput = document.getElementById('name');
 const commentInput = document.getElementById('commentText');
@@ -78,9 +78,12 @@ export const initClickCommentListeners = () => {
 
       // разместить данные в поле коммента
       const textForInput = ">>>" + currentCommentName + ": " + currentCommentText + "\n\n";
+      const commentInput = document.getElementById('commentText');
+      // console.log(commentInput);
+      // console.log(`${commentInput}`);
       commentInput.value = textForInput;
 
-      renderComments();
+      // renderComments();
     })
   }
 };
@@ -122,7 +125,7 @@ export const initAddCommentListener = () => {
   const form = document.querySelector('.add-form')
 
 
-  loaderComments.style.display = "block";
+  // loaderComments.style.display = "block";
   loaderComment.style.display = "none";
   commentsList.style.display = "none";
 

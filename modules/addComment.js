@@ -2,6 +2,7 @@ import { validation, formatText, formateDate, normalizeData, checkErrorMessage }
 import { getComments, sendComment } from "./api.js";
 import { updateComments } from "./comments.js";
 import { renderComments } from "./renderComments.js";
+import { initAddCommentListener } from "./initListeners.js";
 
 const nameInput = document.getElementById('name');
 const commentInput = document.getElementById('commentText');
@@ -64,4 +65,6 @@ export const addComment = () => {
       loaderComment.style.display = "none";
       form.style.display = "block";
     })
+    
+    initAddCommentListener();
 };

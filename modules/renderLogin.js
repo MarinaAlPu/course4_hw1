@@ -1,5 +1,6 @@
-import { login } from "./api.js";
-import { renderRegistration } from "./renderRegistration.js"
+import { login, updateToken, getName } from "./api.js";
+import { renderRegistration } from "./renderRegistration.js";
+import { fetchAndRenderComments } from "./fetchAndRenderComments.js";
 
 export const renderLogin = () => {
   const app = document.getElementById("app");
@@ -26,8 +27,12 @@ export const renderLogin = () => {
   loginButton.addEventListener("click", () => {
     login(loginInput.value, passwordInput.value)
       .then((responseData) => {
-        console.log(responseData);
-        console.log(responseData.user.token);
+        // console.log(responseData);
+        // console.log(responseData.user.token);
+        // console.log(responseData.user.name);
+        updateToken(responseData.user.token);
+        getName(responseData.user.name);
+        fetchAndRenderComments();
       })
 
     loginInput.value = "";
@@ -37,4 +42,6 @@ export const renderLogin = () => {
   regButton.addEventListener("click", () => {
     renderRegistration();
   })
+
+  
 }
