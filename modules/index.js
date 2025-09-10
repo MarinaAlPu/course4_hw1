@@ -1,8 +1,5 @@
-// import { renderComments } from "./renderComments.js";
 // import { deleteClass, setPlaceholder, checkErrorMessage } from "./helpers.js"
 import { fetchAndRenderComments } from "./fetchAndRenderComments.js";
-import { renderComments } from "./renderComments.js";
-import { renderLogin } from "./renderLogin.js";
 // import { addComment } from "./addComment.js";
 // import { updateComments } from "./comments.js";
 // import { getComments } from "./api.js";
@@ -58,8 +55,6 @@ import { renderLogin } from "./renderLogin.js";
 //   });
 
 
-// renderLogin();
-// renderComments();
 fetchAndRenderComments();
 // localStorage.setItem("userLogin", "");
 // localStorage.setItem("userName", "");

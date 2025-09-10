@@ -1,8 +1,7 @@
 import { comments } from "./comments.js";
 import { initClickLikeListeners, initClickCommentListeners, initAddCommentListener } from "./initListeners.js";
-import { formateDate, formatText } from "./helpers.js";
+import { formatText } from "./helpers.js";
 import { renderLogin } from "./renderLogin.js";
-import { token } from "./api.js"
 
 // const loaderComment = document.querySelector('.loader-comment');
 
@@ -10,24 +9,13 @@ import { token } from "./api.js"
 export function renderComments() {
   const userName = localStorage.getItem("userName");
 
-  // const commentsList = document.querySelector('ul.comments');
-  // const loaderComments = document.querySelector('.loader-comments');
-
-  // console.log("\nЭто userName из localStorage", userName);
+  const commentsList = document.querySelector('ul.comments');
+  const loaderComments = document.querySelector('.loader-comments');
 
   const app = document.getElementById("app");
-  // console.log("\nЭто список комментариев в renderComments() перед отрисовкой:");
-  // console.log(comments);
 
-  // app.innerHTML = `
-  //   <div class="loader-comments">Комментарии загружаются, подождите, пожалуйста...</div>
-  //   `
 
   const commentsHtml = comments.map((comment, index) => {
-    // console.log(comment);
-    // console.log("\nДата для комментария");
-    // console.log(comment.date);
-    // if (comment.isLiked) {
     return `<li class="comment" data-index="${index}">
         <div class="comment-header">
           <div class="user-name wrap-words">${comment.name}</div>
@@ -43,24 +31,6 @@ export function renderComments() {
           </div>
         </div>
       </li>`
-    // } 
-    // else if (!comment.isLiked) {
-    //   return `<li class="comment" data-index="${index}">
-    //     <div class="comment-header">
-    //       <div class="user-name wrap-words">${comment.name}</div>
-    //       <div class="date">${formateDate(comment.date)}</div>
-    //     </div>
-    //     <div class="comment-body">
-    //       <div class="comment-text wrap-words">${formatText(comment.text)}</div>
-    //     </div>
-    //     <div class="comment-footer">
-    //       <div class="likes">
-    //         <span class="likes-counter">${comment.likesCounter}</span>
-    //         <button class="like-button"></button>
-    //       </div>
-    //     </div>
-    //   </li>`
-    // }
   })
     .join("");
 
@@ -82,29 +52,15 @@ export function renderComments() {
     </div>`
 
 
-  // const baseHtml = `<ul class="comments">${commentsHtml}</ul>
-  // ${addCommentsFormHtml}`
-
-  // если есть токен, то рендерим комментарии, если токена нет, то ссылку
-  // const baseHtml = `
-  //   <ul class="comments">${commentsHtml}</ul>${token ? addCommentsFormHtml : linkToLoginForm}
-  //   `
-
-  // const userIsLoggedIn = localStorage.getItem("userIsLoggedIn");
   const userToken = localStorage.getItem("userToken");
-  // console.log("\nЮзер залогирован: ", userToken);
-
   
+  
+  // если есть токен, то рендерим комментарии, если токена нет, то ссылку
   const baseHtml = `
     <div class="loader-comments">Комментарии загружаются, подождите, пожалуйста...</div>
     <ul class="comments">${commentsHtml}</ul>${userToken ? addCommentsFormHtml : linkToLoginForm}
     `
 
-  // nameInput.value = name;
-
-  // <div class="loader-comments">Комментарии загружаются, подождите, пожалуйста...</div>
-  // <ul class="comments">${commentsHtml}</ul>${token ? addCommentsFormHtml : linkToLoginForm}
-  // `
 
   app.innerHTML = baseHtml;
 
@@ -115,13 +71,12 @@ export function renderComments() {
   // commentsList.style.display = "none";
 
   // если есть токен, то обработчики на элементы комментария и кнопку добавления коммента, если токена нет, то обработчик на ссылку
-  // if (token) {
   if (userToken) {
     initClickLikeListeners();
     initClickCommentListeners();
     initAddCommentListener();
 
-    //     const loaderComments = document.querySelector('.loader-comments');
+    // const loaderComments = document.querySelector('.loader-comments');
     // const commentsList = document.querySelector('ul.comments');
 
     // loaderComments.style.display = "block";
@@ -134,7 +89,6 @@ export function renderComments() {
     const linkToLogin = document.getElementById("auth-link");
 
     linkToLogin.addEventListener("click", () => {
-      // userName = renderLogin();
       renderLogin();
 
       // прокрутить наверх к форме
@@ -150,12 +104,4 @@ export function renderComments() {
 
   // loaderComments.style.display = "none";
   // commentsList.style.display = "block";
-
-  // console.log("\nЭто userName");
-  // console.log(userName);
-
-  // const nameInput = document.getElementById("name");
-  // if (nameInput) {
-  //   nameInput.value = userName;
-  // }
 }

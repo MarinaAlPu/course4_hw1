@@ -3,7 +3,6 @@ import { getComments, sendComment } from "./api.js";
 import { updateComments } from "./comments.js";
 import { renderComments } from "./renderComments.js";
 import { initAddCommentListener } from "./initListeners.js";
-import { fetchAndRenderComments } from "./fetchAndRenderComments.js";
 
 // 
 export const addComment = () => {

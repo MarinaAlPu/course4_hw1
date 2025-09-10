@@ -19,26 +19,9 @@ const getComments = () => {
     method: 'GET',
   })
     .then((response) => {
-      // console.log(response);
-      // console.log(response.status);
-
       if (response.status === 200) {
-        // console.log(response.json());
         return response.json();
-        // } else if (response.status === 401) {
-        //   throw new Error("Вы не авторизовались");
-        // } else if (response.status === 404) {
-        //   throw new Error("Страница не найдена");
-        // } else if (response.status === 500) {
-        //   throw new Error("Сервер сломался, попробуй позже");
-        // } else {
-        //   throw new Error(`Неопознанная ошибка. Статус код ${response.status}`);
-        // }
       } else {
-        // if (response.status === 401) {
-        //   throw new Error("Вы не авторизовались");
-        // }
-
         if (response.status === 404) {
           throw new Error("Страница не найдена");
         }
@@ -61,9 +44,6 @@ const sendComment = (text, name) => {
     body: JSON.stringify({ "text": text, "name": name, forceError: true })
   })
     .then((response) => {
-      // console.log(response);
-      // console.log("\nКод ответа: ", response.status);
-
       if (response.status === 201) {
         response.json();
       } else {
@@ -97,32 +77,12 @@ const login = (login, password) => {
     })
   })
     .then((response) => {
-      // return response.json()
-
-      console.log(response);
-      console.log("\nКод ответа: ", response.status);
-
       if (response.status === 201) {
         return response.json();
       } else if (response.status === 400) {
         throw new Error("Неверный логин или пароль");
       }
-      //   } else if (checkErrorMessage(error)) {
-      //     alert(error.message);
-      //   } else {
-      //     alert("Кажется, у вас сломался интернет, попробуйте позже");
-      //   }
-
     })
-  // .catch((error) => {
-  //   console.log("\nЭто error:");
-  //   console.log(error);
-  //   alert("Неверный логин или пароль")
-  // })
-  // .finally(() => {
-  //   loginInput.value = "";
-  //   passwordInput.value = "";
-  // })
 }
 
 const registration = (login, name, password) => {
@@ -135,7 +95,6 @@ const registration = (login, name, password) => {
     })
   })
     .then((response) => {
-      // console.log(response);
       return response.json()
     })
 }
