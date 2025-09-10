@@ -56,7 +56,7 @@ const sendComment = (text, name) => {
   return fetch(`${baseUrl}/comments`, {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${localStorage.getItem("userToken")}`,
     },
     body: JSON.stringify({ "text": text, "name": name, forceError: true })
   })
@@ -97,8 +97,32 @@ const login = (login, password) => {
     })
   })
     .then((response) => {
-      return response.json()
+      // return response.json()
+
+      console.log(response);
+      console.log("\nКод ответа: ", response.status);
+
+      if (response.status === 201) {
+        return response.json();
+      } else if (response.status === 400) {
+        throw new Error("Неверный логин или пароль");
+      }
+      //   } else if (checkErrorMessage(error)) {
+      //     alert(error.message);
+      //   } else {
+      //     alert("Кажется, у вас сломался интернет, попробуйте позже");
+      //   }
+
     })
+  // .catch((error) => {
+  //   console.log("\nЭто error:");
+  //   console.log(error);
+  //   alert("Неверный логин или пароль")
+  // })
+  // .finally(() => {
+  //   loginInput.value = "";
+  //   passwordInput.value = "";
+  // })
 }
 
 const registration = (login, name, password) => {

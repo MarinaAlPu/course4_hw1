@@ -61,3 +61,6 @@ import { renderLogin } from "./renderLogin.js";
 // renderLogin();
 // renderComments();
 fetchAndRenderComments();
+// localStorage.setItem("userLogin", "");
+// localStorage.setItem("userName", "");
+// localStorage.setItem("userToken", "");

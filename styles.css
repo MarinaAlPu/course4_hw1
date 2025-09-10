@@ -24,6 +24,10 @@ body {
   /* display: none; */
 }
 
+.comments {
+  display: none;
+}
+
 .comment {
   margin-bottom: 20px;
   /* display: none; */
