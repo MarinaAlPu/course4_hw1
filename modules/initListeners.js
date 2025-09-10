@@ -150,7 +150,7 @@ export const initAddCommentListener = () => {
 
 
   // loaderComments.style.display = "block";
-  loaderComment.style.display = "none";
+  // loaderComment.style.display = "none";
   // commentsList.style.display = "none";
 
   addCommentButton.addEventListener("click", () => {
