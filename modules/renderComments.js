@@ -19,6 +19,10 @@ export function renderComments() {
   // console.log("\nЭто список комментариев в renderComments() перед отрисовкой:");
   // console.log(comments);
 
+  // app.innerHTML = `
+  //   <div class="loader-comments">Комментарии загружаются, подождите, пожалуйста...</div>
+  //   `
+
   const commentsHtml = comments.map((comment, index) => {
     // console.log(comment);
     // console.log("\nДата для комментария");
