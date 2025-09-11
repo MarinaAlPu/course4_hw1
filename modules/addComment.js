@@ -2,14 +2,15 @@ import { validation, formatText, formateDate, normalizeData, checkErrorMessage }
 import { getComments, sendComment } from "./api.js";
 import { updateComments } from "./comments.js";
 import { renderComments } from "./renderComments.js";
+import { initAddCommentListener } from "./initListeners.js";
 
-const nameInput = document.getElementById('name');
-const commentInput = document.getElementById('commentText');
-const loaderComment = document.querySelector('.loader-comment');
-const form = document.querySelector('.add-form')
-
-
+// 
 export const addComment = () => {
+  const nameInput = document.getElementById('name');
+  const commentInput = document.getElementById('commentText');
+  const loaderComment = document.querySelector('.loader-comment');
+  const form = document.querySelector('.add-form')
+
   const nameInputStatus = validation(nameInput);
   const commentInputStatus = validation(commentInput);
 
@@ -32,6 +33,9 @@ export const addComment = () => {
     likesCounter: 0,
     like: false
   };
+
+  loaderComment.style.display = "block";
+  form.style.display = "none";
 
   sendComment(commentObject.text, commentObject.name)
     .then(() => {
@@ -64,4 +68,6 @@ export const addComment = () => {
       loaderComment.style.display = "none";
       form.style.display = "block";
     })
+
+  initAddCommentListener();
 };
