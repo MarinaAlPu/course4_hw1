@@ -1,7 +1,10 @@
 import { comments } from "./comments.js";
 import { renderComments } from "./renderComments.js";
 import { delay } from "./helpers.js";
+import { addComment } from "./addComment.js";
+import { deleteClass, setPlaceholder, checkErrorMessage, normalizeData } from "./helpers.js"
 
+const nameInput = document.getElementById('name');
 const commentInput = document.getElementById('commentText');
 
 
@@ -18,39 +21,58 @@ export const initClickLikeListeners = () => {
       }
 
       isLikeLoading = true;
-      // получить целевой элемент
-      const commentNumber = event.target.closest('li.comment');
+      // // получить целевой элемент
+      // const commentNumber = event.target.closest('li.comment');
 
       // получить индекс комментария
-      const commentIndex = commentNumber.dataset.index;
+      // const commentIndex = commentNumber.dataset.index;
+      // const commentIndex = event.target.dataset.index;
 
       // получить комментарий по индексу из массива
-      const currentComment = comments[commentIndex];
+      // const currentComment = comments[commentIndex];
+      const currentComment = comments[event.target.dataset.index];
+
+      // console.log("\nЭто текущий комментарий после клика на лайк");
+      // console.log(currentComment);
 
       // проверить статус лайка по индексу в объекте комментария в массиве
       const currentisLiked = currentComment.isLiked;
 
-      likeButton.classList.add('-loading-like')
-      delay(2000)
-        .then(() => {
-          if (isLikeLoading === true) {
-            if (currentisLiked) {
-              currentComment.isLiked = false;
-              currentComment.likesCounter--;
-            } else if (!currentisLiked) {
-              currentComment.isLiked = true;
-              currentComment.likesCounter++;
+
+        // if (currentisLiked) {
+        //   currentComment.isLiked = false;
+        //   currentComment.likesCounter--;
+        // } else {
+        //   currentComment.isLiked = true;
+        //   currentComment.likesCounter++;
+        // }
+
+        // // likeButton.classList.remove('-loading-like')
+
+        // renderComments();
+
+
+        likeButton.classList.add('-loading-like')
+        delay(2000)
+          .then(() => {
+            if (isLikeLoading === true) {
+              if (currentisLiked) {
+                currentComment.isLiked = false;
+                currentComment.likesCounter--;
+              } else if (!currentisLiked) {
+                currentComment.isLiked = true;
+                currentComment.likesCounter++;
+              }
+
+              likeButton.classList.remove('-loading-like')
+
+              renderComments();
             }
-
-            likeButton.classList.remove('-loading-like')
-
-            renderComments();
-          }
-        })
+          })
         .then(() => {
           isLikeLoading = false;
         })
-    })
+      })
   }
 };
 
@@ -60,14 +82,19 @@ export const initClickCommentListeners = () => {
 
   for (const existingComment of existingComments) {
     existingComment.addEventListener("click", (event) => {
-      // получить целевой элемент
-      const existingComment = event.target.closest('li.comment');
+      // // получить целевой элемент
+      // const existingComment = event.target.closest('li.comment');
 
       // получить индекс комментария
-      const commentIndex = existingComment.dataset.index;
+      // const commentIndex = existingComment.dataset.index;
+      // const commentIndex = event.target.dataset.index;
 
       // получить комментарий по индексу из массива
-      const currentComment = comments[commentIndex];
+      // const currentComment = comments[commentIndex];
+      const currentComment = comments[event.target.dataset.index];
+
+      // console.log("\nЭто текущий комментарий после клика на комментарий");
+      // console.log(currentComment);
 
       // получить данные для инпута
       const currentCommentName = currentComment.name;
@@ -75,9 +102,60 @@ export const initClickCommentListeners = () => {
 
       // разместить данные в поле коммента
       const textForInput = ">>>" + currentCommentName + ": " + currentCommentText + "\n\n";
+      const commentInput = document.getElementById('commentText');
+      // console.log(commentInput);
+      // console.log(`${commentInput}`);
       commentInput.value = textForInput;
 
-      renderComments();
+      // renderComments();
     })
   }
 };
+
+// обработчик клика по полю "Имя"
+export const initNameDeleteClass = () => {
+  nameInput.addEventListener("click", () => {
+    deleteClass(nameInput, "error");
+  });
+}
+
+// обработчик клика по полю "Текст комментария"
+export const initCommentTextDeleteClass = () => {
+  commentInput.addEventListener("click", () => {
+    deleteClass(commentInput, "error");
+  });
+}
+
+// обработчик события потери фокуса на поле "Имя"
+export const initSetNamePlaceholder = () => {
+  nameInput.addEventListener("blur", () => {
+    setPlaceholder(nameInput, "Введите ваше имя");
+  });
+}
+
+// обработчик события потери фокуса на поле  "Текст комментария"
+export const initSetCommentTextPlaceholder = () => {
+  commentInput.addEventListener("blur", () => {
+    setPlaceholder(commentInput, "Введите ваш коментарий");
+  });
+}
+
+// функция навешивания обработчика на кнопку добавления комментария
+export const initAddCommentListener = () => {
+  const addCommentButton = document.querySelector('.add-form-button');
+  // const commentsList = document.querySelector('ul.comments');
+  // const loaderComments = document.querySelector('.loader-comments');
+  const loaderComment = document.querySelector('.loader-comment');
+  const form = document.querySelector('.add-form')
+
+
+  // loaderComments.style.display = "block";
+  // loaderComment.style.display = "none";
+  // commentsList.style.display = "none";
+
+  addCommentButton.addEventListener("click", () => {
+    loaderComment.style.display = "block";
+    form.style.display = "none";
+    addComment()
+  });
+}
