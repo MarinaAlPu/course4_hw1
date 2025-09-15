@@ -3,6 +3,7 @@ import { renderComments } from "./renderComments.js";
 import { delay } from "./helpers.js";
 import { addComment } from "./addComment.js";
 import { deleteClass, setPlaceholder, checkErrorMessage, normalizeData } from "./helpers.js"
+import { fetchAndRenderComments } from "./fetchAndRenderComments.js";
 
 const nameInput = document.getElementById('name');
 const commentInput = document.getElementById('commentText');
@@ -39,40 +40,40 @@ export const initClickLikeListeners = () => {
       const currentisLiked = currentComment.isLiked;
 
 
-        // if (currentisLiked) {
-        //   currentComment.isLiked = false;
-        //   currentComment.likesCounter--;
-        // } else {
-        //   currentComment.isLiked = true;
-        //   currentComment.likesCounter++;
-        // }
+      // if (currentisLiked) {
+      //   currentComment.isLiked = false;
+      //   currentComment.likesCounter--;
+      // } else {
+      //   currentComment.isLiked = true;
+      //   currentComment.likesCounter++;
+      // }
 
-        // // likeButton.classList.remove('-loading-like')
+      // // likeButton.classList.remove('-loading-like')
 
-        // renderComments();
+      // renderComments();
 
 
-        likeButton.classList.add('-loading-like')
-        delay(2000)
-          .then(() => {
-            if (isLikeLoading === true) {
-              if (currentisLiked) {
-                currentComment.isLiked = false;
-                currentComment.likesCounter--;
-              } else if (!currentisLiked) {
-                currentComment.isLiked = true;
-                currentComment.likesCounter++;
-              }
-
-              likeButton.classList.remove('-loading-like')
-
-              renderComments();
+      likeButton.classList.add('-loading-like')
+      delay(2000)
+        .then(() => {
+          if (isLikeLoading === true) {
+            if (currentisLiked) {
+              currentComment.isLiked = false;
+              currentComment.likesCounter--;
+            } else if (!currentisLiked) {
+              currentComment.isLiked = true;
+              currentComment.likesCounter++;
             }
-          })
+
+            likeButton.classList.remove('-loading-like')
+
+            renderComments();
+          }
+        })
         .then(() => {
           isLikeLoading = false;
         })
-      })
+    })
   }
 };
 
@@ -158,4 +159,21 @@ export const initAddCommentListener = () => {
     form.style.display = "none";
     addComment()
   });
+}
+
+export const initLogoutListener = () => {
+  const logoutButton = document.getElementById("logout");
+
+  logoutButton.addEventListener("click", () => {
+    console.log("\nНажали кнопку Выйти");
+    localStorage.setItem("userLogin", "");
+    localStorage.setItem("userName", "");
+    localStorage.setItem("userToken", "");
+
+    fetchAndRenderComments();
+
+    app.scrollIntoView({
+      behavior: 'smooth'
+    });
+  })
 }

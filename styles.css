@@ -30,7 +30,7 @@ body {
 }
 
 .loader-comments {
-  display: none;  
+  display: none;
 }
 
 .loader-comment {
@@ -146,9 +146,11 @@ body {
 
 .add-form-row {
   display: flex;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
+  justify-content: space-between;
 }
 
+.add-form-button-logout,
 .add-form-button,
 .login-form-login-button,
 .login-form-registration-button,
@@ -162,6 +164,7 @@ body {
   cursor: pointer;
 }
 
+.add-form-button-logout:hover,
 .add-form-button:hover,
 .login-form-button:hover,
 .registration-form-button:hover {

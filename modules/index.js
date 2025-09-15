@@ -6,6 +6,3 @@ app.scrollIntoView({
 });
 
 fetchAndRenderComments();
-// localStorage.setItem("userLogin", "");
-// localStorage.setItem("userName", "");
-// localStorage.setItem("userToken", "");
