@@ -3,14 +3,9 @@ import { initClickLikeListeners, initClickCommentListeners, initAddCommentListen
 import { formatText } from "./helpers.js";
 import { renderLogin } from "./renderLogin.js";
 
-// const loaderComment = document.querySelector('.loader-comment');
-
 
 export function renderComments() {
   const userName = localStorage.getItem("userName");
-
-  // const commentsList = document.querySelector('ul.comments');
-  // const loaderComments = document.querySelector('.loader-comments');
 
   const app = document.getElementById("app");
 
@@ -62,14 +57,7 @@ export function renderComments() {
     <ul class="comments">${commentsHtml}</ul>${userToken ? addCommentsFormHtml : linkToLoginForm}
     `
 
-
   app.innerHTML = baseHtml;
-
-  // const loaderComments = document.querySelector('.loader-comments');
-  // const commentsList = document.querySelector('ul.comments');
-
-  // loaderComments.style.display = "block";
-  // commentsList.style.display = "none";
 
   // если есть токен, то обработчики на элементы комментария и кнопку добавления коммента, если токена нет, то обработчик на ссылку
   if (userToken) {
@@ -77,31 +65,6 @@ export function renderComments() {
     initClickCommentListeners();
     initAddCommentListener();
     initLogoutListener();
-
-    // const loaderComments = document.querySelector('.loader-comments');
-    // const commentsList = document.querySelector('ul.comments');
-
-    // loaderComments.style.display = "block";
-    // commentsList.style.display = "none";
-
-    // loaderComments.style.display = "none";
-    // commentsList.style.display = "block";
-
-    // const logoutButton = document.getElementById("logout");
-    // // console.log("\nЭто кнопка logoutButton:");
-    // // console.log(logoutButton);
-
-    // logoutButton.addEventListener("click", () => {
-    //   console.log("\nНажали кнопку Выйти");
-    //   localStorage.setItem("userLogin", "");
-    //   localStorage.setItem("userName", "");
-    //   localStorage.setItem("userToken", "");
-
-
-
-
-    // })
-
   } else {
     const linkToLogin = document.getElementById("auth-link");
 
@@ -114,24 +77,4 @@ export function renderComments() {
       });
     })
   }
-
-
-  // const logoutButton = document.getElementById("logout");
-  // console.log("\nЭто кнопка logoutButton:");
-  // console.log(logoutButton);
-
-  // logoutButton.addEventListener("click", () => {
-  //   console.log("\nНажали кнопку Выйти");
-  //   localStorage.setItem("userLogin", "");
-  //   localStorage.setItem("userName", "");
-  //   localStorage.setItem("userToken", "");
-  // })
-
-  // fetchAndRenderComments();
-
-  // const commentsList = document.querySelector('ul.comments');
-  // const loaderComments = document.querySelector('.loader-comments');
-
-  // loaderComments.style.display = "none";
-  // commentsList.style.display = "block";
 }
