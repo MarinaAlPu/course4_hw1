@@ -5,16 +5,21 @@ import { renderComments } from "./renderComments.js";
 
 
 export const fetchAndRenderComments = () => {
-  const loaderComments = document.querySelector('.loader-comments');
-  console.log("\nЭто loaderComments:");
-  console.log(loaderComments);
-  loaderComments.style.display = "block";
+  const app = document.getElementById("app");
 
+  app.innerHTML = '<div class="loader-comments">Комментарии загружаются, подождите, пожалуйста...</div>';
+
+  const loaderComments = document.querySelector('.loader-comments');
+
+  loaderComments.style.display = "block";
+  
   return getComments()
     .then((data) => {
       const normData = normalizeData(data);
       updateComments(normData);
+
       loaderComments.style.display = "none";
+
       renderComments();
     })
 }
