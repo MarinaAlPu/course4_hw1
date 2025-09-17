@@ -165,7 +165,7 @@ export const initLogoutListener = () => {
   const logoutButton = document.getElementById("logout");
 
   logoutButton.addEventListener("click", () => {
-    console.log("\nНажали кнопку Выйти");
+    // console.log("\nНажали кнопку Выйти");
     localStorage.setItem("userLogin", "");
     localStorage.setItem("userName", "");
     localStorage.setItem("userToken", "");
